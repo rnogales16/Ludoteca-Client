@@ -21,11 +21,23 @@ export class ClientListComponent implements OnInit {
     this.clientService
       .getClients()
       .subscribe((clients) => (this.dataSource.data = clients));
+    console.log(this.dataSource.filteredData);
+  }
+
+  fetchData(): void {
+    this.clientService.getClients().subscribe(
+      (dataSource) => {
+        console.log(this.dataSource);
+      },
+      (error) => {
+        console.error('Error:', error);
+      }
+    );
   }
 
   createClient() {
     const dialogRef = this.dialog.open(ClientEditComponent, {
-      data: {},
+      data: { list: this.dataSource },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -40,6 +52,7 @@ export class ClientListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       this.ngOnInit();
+      console.log(this.dataSource);
     });
   }
 
@@ -56,6 +69,7 @@ export class ClientListComponent implements OnInit {
       if (result) {
         this.clientService.deleteClient(client.id).subscribe((result) => {
           this.ngOnInit();
+          console.log(this.dataSource);
         });
       }
     });

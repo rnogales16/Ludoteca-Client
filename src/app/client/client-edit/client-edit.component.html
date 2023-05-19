@@ -22,10 +22,14 @@
         matInput
         placeholder="Nombre de cliente"
         [(ngModel)]="client.name"
+        [ngClass]="{ error: error }"
         name="name"
         required
       />
       <mat-error>El nombre no puede estar vacío</mat-error>
+      <p *ngIf="error" style="color: red">
+        {{ error }}
+      </p>
     </mat-form-field>
   </form>
 
