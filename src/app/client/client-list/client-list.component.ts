@@ -52,7 +52,6 @@ export class ClientListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       this.ngOnInit();
-      console.log(this.dataSource);
     });
   }
 
