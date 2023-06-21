@@ -16,6 +16,7 @@ export class LoanEditComponent implements OnInit {
   loan: Loan;
   clients: Client[];
   games: Game[];
+  error: string = '';
 
   constructor(
     public dialogRef: MatDialogRef<LoanEditComponent>,
@@ -60,9 +61,15 @@ export class LoanEditComponent implements OnInit {
   }
 
   onSave() {
-    this.loanService.saveLoan(this.loan).subscribe((result) => {
-      this.dialogRef.close();
-    });
+    this.loanService.saveLoan(this.loan).subscribe(
+      (result) => {
+        this.dialogRef.close();
+      },
+      (error) => {
+        this.error = error?.error?.error;
+        console.log(this.error);
+      }
+    );
   }
 
   onClose() {

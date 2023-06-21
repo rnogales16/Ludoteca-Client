@@ -65,6 +65,9 @@
       />
       <mat-error>El Fecha de devolución no puede estar vacía</mat-error>
     </mat-form-field>
+    <p *ngIf="error" style="color: red; max-width: 350px">
+      {{ error }}
+    </p>
   </form>
 
   <div class="buttons">
