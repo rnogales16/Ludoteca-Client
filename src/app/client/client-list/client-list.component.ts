@@ -21,14 +21,11 @@ export class ClientListComponent implements OnInit {
     this.clientService
       .getClients()
       .subscribe((clients) => (this.dataSource.data = clients));
-    console.log(this.dataSource.filteredData);
   }
 
   fetchData(): void {
     this.clientService.getClients().subscribe(
-      (dataSource) => {
-        console.log(this.dataSource);
-      },
+      (dataSource) => {},
       (error) => {
         console.error('Error:', error);
       }
@@ -68,7 +65,6 @@ export class ClientListComponent implements OnInit {
       if (result) {
         this.clientService.deleteClient(client.id).subscribe((result) => {
           this.ngOnInit();
-          console.log(this.dataSource);
         });
       }
     });

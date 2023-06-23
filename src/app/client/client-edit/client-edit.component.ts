@@ -12,7 +12,6 @@ export class ClientEditComponent implements OnInit {
   client: Client;
   clients: Client[];
   error: string = '';
-  /* nameRepeated: Boolean; */
 
   constructor(
     public dialogRef: MatDialogRef<ClientEditComponent>,
@@ -26,25 +25,17 @@ export class ClientEditComponent implements OnInit {
     } else {
       this.client = new Client();
     }
-    console.log(this.client);
   }
 
   onSave() {
-    console.log(this.client);
-
     this.clientService.saveClient(this.client).subscribe(
       (result) => {
         this.dialogRef.close();
       },
       (error) => {
         this.error = error?.error?.error;
-        console.log(this.error);
       }
     );
-
-    /* this.clientService.saveClient(this.client).subscribe((result) => {
-      this.dialogRef.close();
-    }); */
   }
 
   onClose() {

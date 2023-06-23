@@ -46,8 +46,6 @@ export class LoanListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    /* this.loadAllLoans(); */
-
     this.loadPage();
 
     this.clientService
@@ -56,14 +54,6 @@ export class LoanListComponent implements OnInit {
 
     this.gameService.getGames().subscribe((games) => (this.games = games));
   }
-
-  /* loadAllLoans() {
-    this.loanService.getAllLoans().subscribe((loans) => {
-      this.loans = loans;
-      this.dataSource.data = loans;
-      console.log(loans);
-    });
-  } */
 
   loadPage(event?: PageEvent) {
     let pageable: Pageable = {
@@ -88,8 +78,6 @@ export class LoanListComponent implements OnInit {
       this.pageNumber = data.pageable.pageNumber;
       this.pageSize = data.pageable.pageSize;
       this.totalElements = data.totalElements;
-      console.log(this.dataSource.data);
-      console.log(this.totalElements);
     });
   }
 
@@ -98,49 +86,16 @@ export class LoanListComponent implements OnInit {
     this.filterClient = null;
     this.filterGame = null;
 
-    this.ngOnInit();
+    this.onSearch();
   }
-
-  /* onSearch(): void {
-    //tengo que llamar al back añadiendo la petición getLoans para que busque entre todos los prestamos y devuelva los filtrados
-    let clientId = this.filterClient != null ? this.filterClient.id : null;
-    let gameId = this.filterGame != null ? this.filterGame.id : null;
-
-    let filteredLoans = this.loans;
-
-    if (this.filterDate) {
-      filteredLoans = filteredLoans.filter((loan) => {
-        const loanStartingDate = new Date(loan.startingDate);
-        const loanEndingDate = new Date(loan.endingDate);
-        const selectedDate = new Date(this.filterDate);
-
-        return (
-          selectedDate >= loanStartingDate && selectedDate <= loanEndingDate
-        );
-      });
-    }
-
-    if (clientId) {
-      filteredLoans = filteredLoans.filter(
-        (loan) => loan.client.id === clientId
-      );
-    }
-
-    if (gameId) {
-      filteredLoans = filteredLoans.filter((loan) => loan.game.id === gameId);
-    }
-
-    this.dataSource.data = filteredLoans;
-  } */
 
   onSearch(): void {
     let clientId = this.filterClient != null ? this.filterClient.id : null;
     let gameId = this.filterGame != null ? this.filterGame.id : null;
 
-    // Aqui creo el objeto Pageable para obtener todos los préstamos
     const pageable: Pageable = {
-      pageNumber: 0, // Pagina inicial
-      pageSize: 50, // Cantidad suficientemente grande para obtener todos los prestamos
+      pageNumber: 0,
+      pageSize: 50,
       sort: [
         {
           property: 'id',

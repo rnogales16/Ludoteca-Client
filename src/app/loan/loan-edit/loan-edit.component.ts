@@ -66,8 +66,7 @@ export class LoanEditComponent implements OnInit {
         this.dialogRef.close();
       },
       (error) => {
-        this.error = error?.error?.error;
-        console.log(this.error);
+        this.error = error?.error?.msg;
       }
     );
   }
